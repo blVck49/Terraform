@@ -1,33 +1,38 @@
+provider "aws" {
+    profile = "default"
+    region = "${var.region}"
+}
+
 resource "aws_vpc" "PROD-vpc" {
-    cidr_block = "{var.PROD-vpc}"
+    cidr_block = "${var.PROD-vpc}"
     tags = {
         Name = "PROD-vpc"
     }
 }
 resource "aws_subnet" "PUB-subnet1" {
     vpc_id = "${aws_vpc.PROD-vpc.id}"
-    cidr_block = "{var.PUB-subnet1}"
+    cidr_block = "${var.PUB-subnet1}"
     tags = {
         Name = "PUB-subnet1"
     }
 }
 resource "aws_subnet" "PUB-subnet2"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
-    cidr_block = "{var.PUB-subnet2}"
+    cidr_block = "${var.PUB-subnet2}"
     tags = {
         Name = "PUB-subnet2"
     }
 }
 resource "aws_subnet" "PRIV-subnet1"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
-    cidr_block = "{var.PRIV-subnet1}"
+    cidr_block = "${var.PRIV-subnet1}"
     tags = {
         Name = "PRIV-subnet1"
     }
 }
 resource "aws_subnet" "PRIV-subnet2"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
-    cidr_block = "{var.PRIV-subnet2}"
+    cidr_block = "${var.PRIV-subnet2}"
     tags = {
         Name = "PRIV-subnet2"
     }
@@ -42,36 +47,24 @@ resource "aws_route_table" "r1"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
     route {
         cidr_block = "${var.PUB-subnet1}"
-        tags = {
-            Name = "r1"
-        }
     }
 }
 resource "aws_route_table" "r2"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
     route {
         cidr_block = "${var.PUB-subnet2}"
-        tags = {
-            Name = "r2"
-        }
     }
 }
 resource "aws_route_table" "r3"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
     route {
         cidr_block = "${var.PRIV-subnet1}"
-        tags = {
-            Name = "r3"
-        }
     }
 }
 resource "aws_route_table" "r4"{
     vpc_id = "${aws_vpc.PROD-vpc.id}"
     route {
         cidr_block = "${var.PRIV-subnet2}"
-        tags = {
-            Name = "r4"
-        }
     }
 }
 
